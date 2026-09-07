@@ -1019,10 +1019,18 @@ async function cargarDashboardInicio() {
                 const subtotalFila = montoTotal / 1.07; 
 
                 if (fechaStr) {
-                    const fechaFila = new Date(fechaStr);
-                    if (fechaFila.getMonth() === mesActual && fechaFila.getFullYear() === anioActual) {
-                        cantMes++;
-                        montoMes += subtotalFila;
+                    // Extraemos año y mes directamente del texto de la celda (ej: "2026-09-07")
+                    const fechaLimpieza = fechaStr.toString().split('T')[0];
+                    const partes = fechaLimpieza.split('-');
+                    
+                    if (partes.length === 3) {
+                        const anioFila = parseInt(partes[0], 10);
+                        const mesFila = parseInt(partes[1], 10) - 1; // Los meses en JS van de 0 a 11
+
+                        if (mesFila === mesActual && anioFila === anioActual) {
+                            cantMes++;
+                            montoMes += subtotalFila;
+                        }
                     }
                 }
 
