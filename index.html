@@ -115,7 +115,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-sm font-semibold mb-1">Nº de Cotización</label>
-                        <input type="text" id="ui-numero" class="w-full border rounded p-2 focus:ring-2 focus:ring-dprinted-yellow outline-none font-bold text-gray-700" placeholder="Ej. 03089" readonly>
+                        <input type="text" id="ui-numero" class="w-full border rounded p-2 focus:ring-2 focus:ring-dprinted-yellow outline-none font-bold text-gray-700" value="03089" readonly>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Fecha</label>
@@ -272,7 +272,7 @@
                 <!-- 1. Logo -->
                 <div class="flex items-center w-1/4">
                     <!-- REEMPLAZA EL ATRIBUTO SRC CON LA RUTA DE TU LOGO. EJ: src="logo.png" -->
-                    <img src="https://placehold.co/150x60/0A0A0A/EAA800?text=Logo+D'Printed" alt="Logo D'Printed" class="max-h-16 object-contain">
+                    <img src="Logo.png" alt="Logo D'Printed" class="max-h-16 object-contain">
                 </div>
                 
                 <!-- 2. Título Central -->
@@ -414,14 +414,14 @@
                 const result = await response.json();
                 if (result.estado === 'exito' && result.ultimoNumero) {
                     let ultNum = parseInt(result.ultimoNumero, 10);
-                    if(isNaN(ultNum)) ultNum = 3089;
+                    if(isNaN(ultNum)) ultNum = 3088;
                     const sigNum = (ultNum + 1).toString().padStart(5, '0');
                     document.getElementById('ui-numero').value = sigNum;
                 } else {
-                    document.getElementById('ui-numero').value = "03090";
+                    document.getElementById('ui-numero').value = "03089";
                 }
             } catch (e) {
-                document.getElementById('ui-numero').value = "03090"; // Fallback seguro
+                document.getElementById('ui-numero').value = "03089"; // Fallback seguro
             }
         }
 
