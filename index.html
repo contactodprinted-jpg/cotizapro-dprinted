@@ -414,7 +414,7 @@
                 const result = await response.json();
                 if (result.estado === 'exito' && result.ultimoNumero) {
                     let ultNum = parseInt(result.ultimoNumero, 10);
-                    if(isNaN(ultNum)) ultNum = 3088;
+                    if (isNaN(ultNum) || ultNum < 3088) ultNum = 3088;
                     const sigNum = (ultNum + 1).toString().padStart(5, '0');
                     document.getElementById('ui-numero').value = sigNum;
                 } else {
