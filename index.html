@@ -954,7 +954,7 @@
                 btnElement.innerHTML = textoOriginal;
                 btnElement.disabled = false;
             }
-        }const frasesMotivadoras = [
+       const frasesMotivadoras = [
     "La disciplina es el puente entre tus metas y tus logros.",
     "Cada cotización de hoy es el proyecto exitoso de mañana.",
     "El éxito no es final, el fracaso no es fatal: lo que cuenta es el valor de continuar.",
@@ -995,27 +995,42 @@ function cargarFraseMotivadora() {
     }
 }
 
-registros.forEach(row => {
-    const fechaStr = row[0]; // Columna A: Fecha
-    const cliente = row[3];  // Columna D: Cliente
-    
-    // Aquí calculamos el subtotal dividiendo el monto total (Columna E) entre 1.07
-    const montoTotal = parseFloat(row[4]) || 0;
-    const subtotalFila = montoTotal / 1.07; 
+async function cargarDashboardInicio() {
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL + "?action=dashboard");
+        const result = await response.json();
 
-    if (fechaStr) {
-        const fechaFila = new Date(fechaStr);
-        if (fechaFila.getMonth() === mesActual && fechaFila.getFullYear() === anioActual) {
-            cantMes++;
-            montoMes += subtotalFila; // Suma el subtotal al total del mes
-        }
-    }
+        if (result.estado === 'exito' && result.datos) {
+            const filas = result.datos;
+            const registros = filas.slice(1); 
 
-    if (cliente) {
-        const nombreCliente = cliente.toString().trim();
-        conteoClientes[nombreCliente] = (conteoClientes[nombreCliente] || 0) + 1;
-    }
-});
+            const fechaActual = new Date();
+            const mesActual = fechaActual.getMonth();
+            const anioActual = fechaActual.getFullYear();
+
+            let cantMes = 0;
+            let montoMes = 0;
+            const conteoClientes = {};
+
+            registros.forEach(row => {
+                const fechaStr = row[0]; 
+                const cliente = row[3];
+                const montoTotal = parseFloat(row[4]) || 0;
+                const subtotalFila = montoTotal / 1.07; 
+
+                if (fechaStr) {
+                    const fechaFila = new Date(fechaStr);
+                    if (fechaFila.getMonth() === mesActual && fechaFila.getFullYear() === anioActual) {
+                        cantMes++;
+                        montoMes += subtotalFila;
+                    }
+                }
+
+                if (cliente) {
+                    const nombreCliente = cliente.toString().trim();
+                    conteoClientes[nombreCliente] = (conteoClientes[nombreCliente] || 0) + 1;
+                }
+            });
 
             document.getElementById('dash-cant-mes').textContent = cantMes;
             document.getElementById('dash-monto-mes').textContent = "$" + montoMes.toFixed(2);
@@ -1042,18 +1057,9 @@ registros.forEach(row => {
     }
 }
 
-// Cargar la frase motivadora de inmediato
 window.addEventListener('DOMContentLoaded', () => {
     cargarFraseMotivadora();
-});
-
-// Cargar los datos del dashboard un momento después para asegurar conexión con la API
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        if (typeof GOOGLE_SCRIPT_URL !== 'undefined') {
-            cargarDashboardInicio();
-        }
-    }, 500);
+    cargarDashboardInicio();
 });
     </script>
 </body>
