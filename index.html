@@ -997,8 +997,11 @@ function cargarFraseMotivadora() {
 
 async function cargarDashboardInicio() {
     try {
+        console.log("Conectando con Google Apps Script...");
         const response = await fetch(GOOGLE_SCRIPT_URL + "?action=dashboard");
         const result = await response.json();
+        
+        console.log("Datos que llegaron de Google:", result);
 
         if (result.estado === 'exito' && result.datos) {
             const filas = result.datos;
