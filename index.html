@@ -98,50 +98,6 @@
         <button onclick="iniciarApp()" class="bg-dprinted-yellow hover:bg-yellow-500 text-black font-bold py-3 px-10 rounded-full shadow-[0_0_20px_rgba(234,168,0,0.4)] transform transition hover:scale-105 text-lg flex items-center">
             Ingresar al Sistema <i class="fa-solid fa-arrow-right ml-2"></i>
         </button>
-        <!-- INICIO: Dashboard y Frase Motivadora -->
-    <div id="pantalla-inicio-dashboard" class="mt-8 max-w-4xl mx-auto px-4">
-        <!-- Frase Motivadora del Día -->
-        <div class="mb-6 p-4 bg-gray-900 border border-dprinted-yellow/30 rounded-xl text-center shadow-lg">
-            <p id="frase-motivadora" class="text-sm italic text-gray-300">"Cargando inspiración para hoy..."</p>
-        </div>
-
-        <!-- Tarjetas de Resumen Mensual -->
-        <div id="contenedor-dashboard-inicio" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl text-center shadow">
-                <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Cotizaciones del Mes</h4>
-                <p id="dash-cant-mes" class="text-2xl font-bold text-dprinted-yellow mt-1">0</p>
-            </div>
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl text-center shadow">
-                <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Subtotal del Mes</h4>
-                <p id="dash-monto-mes" class="text-2xl font-bold text-dprinted-yellow mt-1">$0.00</p>
-            </div>
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl text-center shadow">
-                <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Top Clientes Registrados</h4>
-                <p id="dash-total-clientes" class="text-2xl font-bold text-dprinted-yellow mt-1">0</p>
-            </div>
-        </div>
-
-        <!-- Top 10 Clientes -->
-        <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow">
-            <h3 class="text-sm font-bold text-dprinted-yellow mb-3 uppercase tracking-wider">Top 10 Clientes del Mes</h3>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs text-gray-300">
-                    <thead class="bg-gray-800 text-gray-400 uppercase">
-                        <tr>
-                            <th class="p-2">Cliente / Empresa</th>
-                            <th class="p-2 text-right">Cotizaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-top-clientes">
-                        <tr>
-                            <td colspan="2" class="p-2 text-center text-gray-500">Sincronizando datos...</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- FIN: Dashboard y Frase Motivadora -->
     </div>
 
     <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
@@ -159,7 +115,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-sm font-semibold mb-1">Nº de Cotización</label>
-                        <input type="text" id="ui-numero" class="w-full border rounded p-2 focus:ring-2 focus:ring-dprinted-yellow outline-none font-bold text-gray-700" value="03089" readonly>
+                        <input type="text" id="ui-numero" class="w-full border rounded p-2 focus:ring-2 focus:ring-dprinted-yellow outline-none font-bold text-gray-700" placeholder="Ej. 03089" readonly>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Fecha</label>
@@ -316,7 +272,7 @@
                 <!-- 1. Logo -->
                 <div class="flex items-center w-1/4">
                     <!-- REEMPLAZA EL ATRIBUTO SRC CON LA RUTA DE TU LOGO. EJ: src="logo.png" -->
-                    <img src="Logo.png" alt="Logo D'Printed" class="max-h-16 object-contain">
+                    <img src="https://placehold.co/150x60/0A0A0A/EAA800?text=Logo+D'Printed" alt="Logo D'Printed" class="max-h-16 object-contain">
                 </div>
                 
                 <!-- 2. Título Central -->
@@ -458,14 +414,14 @@
                 const result = await response.json();
                 if (result.estado === 'exito' && result.ultimoNumero) {
                     let ultNum = parseInt(result.ultimoNumero, 10);
-                    if (isNaN(ultNum) || ultNum < 3088) ultNum = 3088;
+                    if(isNaN(ultNum)) ultNum = 3089;
                     const sigNum = (ultNum + 1).toString().padStart(5, '0');
                     document.getElementById('ui-numero').value = sigNum;
                 } else {
-                    document.getElementById('ui-numero').value = "03089";
+                    document.getElementById('ui-numero').value = "03090";
                 }
             } catch (e) {
-                document.getElementById('ui-numero').value = "03089"; // Fallback seguro
+                document.getElementById('ui-numero').value = "03090"; // Fallback seguro
             }
         }
 
@@ -954,132 +910,7 @@
                 btnElement.innerHTML = textoOriginal;
                 btnElement.disabled = false;
             }
-       const frasesMotivadoras = [
-    "La disciplina es el puente entre tus metas y tus logros.",
-    "Cada cotización de hoy es el proyecto exitoso de mañana.",
-    "El éxito no es final, el fracaso no es fatal: lo que cuenta es el valor de continuar.",
-    "Haz hoy lo que otros no quieren, haz mañana lo que otros no pueden.",
-    "La calidad nunca es un accidente; es el resultado de un esfuerzo inteligente.",
-    "El único lugar donde el éxito viene antes que el trabajo es en el diccionario.",
-    "Organización y constancia: las mejores herramientas para liderar.",
-    "Un objetivo es un sueño con fecha de límite.",
-    "No cuentes los días, haz que los días cuenten.",
-    "La excelencia no es un acto, es un hábito.",
-    "El trabajo en equipo divide la tarea y multiplica el éxito.",
-    "Visualiza tu meta, confía en tu proceso y da el primer paso.",
-    "Cree en ti mismo y todo lo que eres. Hay algo dentro de ti más grande que cualquier obstáculo.",
-    "El secreto del éxito empresarial es estar dispuesto a cuando llegue tu oportunidad.",
-    "Empieza haciendo lo necesario, luego lo posible, y te encontrarás haciendo lo imposible.",
-    "La mejor forma de predecir el futuro es creándolo.",
-    "El éxito en los negocios requiere entrenamiento, disciplina y trabajo duro.",
-    "Haz que cada detalle importe en cada proyecto que entregues.",
-    "La persistencia es convertir el fracaso en un extraordinario triunfo.",
-    "Tu actitud, no tu aptitud, determinará tu altitud.",
-    "El liderazgo se demuestra con el ejemplo diario y la pasión por lo que haces.",
-    "Los pequeños progresos de cada día suman grandes resultados.",
-    "Confía en la calidad de tu trabajo y en la solidez de tu equipo.",
-    "El éxito llega para aquellos que están dispuestos a trabajar más duro que los demás.",
-    "Cada reto superado fortalece tu empresa y tu visión.",
-    "La innovación distingue a un líder de los demás.",
-    "Planifica tu trabajo hoy para disfrutar del éxito mañana.",
-    "El valor de una marca se construye con cada cliente satisfecho.",
-    "Enfócate en ser productivo, no en estar ocupado.",
-    "Hoy es un gran día para superar tus propias metas."
-];
-
-function cargarFraseMotivadora() {
-    const elFrase = document.getElementById('frase-motivadora');
-    if (elFrase) {
-        const indiceAleatorio = Math.floor(Math.random() * frasesMotivadoras.length);
-        elFrase.textContent = `"${frasesMotivadoras[indiceAleatorio]}"`;
-    }
-}
-
-async function cargarDashboardInicio() {
-    try {
-        const response = await fetch(GOOGLE_SCRIPT_URL + "?action=dashboard");
-        const result = await response.json();
-
-        if (result.estado === 'exito' && result.datos) {
-            const filas = result.datos;
-            const registros = filas.slice(1); 
-
-            const fechaActual = new Date();
-            const mesActual = fechaActual.getMonth();
-            const anioActual = fechaActual.getFullYear();
-
-            let cantMes = 0;
-            let montoMes = 0;
-            const conteoClientes = {};
-
-            registros.forEach(row => {
-                const fechaStr = row[0]; 
-                const cliente = row[3];
-                const montoTotal = parseFloat(row[4]) || 0;
-                const subtotalFila = montoTotal / 1.07; 
-
-                if (fechaStr) {
-                    // Extraemos año y mes directamente del texto de la celda (ej: "2026-09-07")
-                    const fechaLimpieza = fechaStr.toString().split('T')[0];
-                    const partes = fechaLimpieza.split('-');
-                    
-                    if (partes.length === 3) {
-                        const anioFila = parseInt(partes[0], 10);
-                        const mesFila = parseInt(partes[1], 10) - 1; // Los meses en JS van de 0 a 11
-
-                        if (mesFila === mesActual && anioFila === anioActual) {
-                            cantMes++;
-                            montoMes += subtotalFila;
-                        }
-                    }
-                }
-
-                if (cliente) {
-                    const nombreCliente = cliente.toString().trim();
-                    conteoClientes[nombreCliente] = (conteoClientes[nombreCliente] || 0) + 1;
-                }
-            });
-
-            document.getElementById('dash-cant-mes').textContent = cantMes;
-            document.getElementById('dash-monto-mes').textContent = "$" + montoMes.toFixed(2);
-            document.getElementById('dash-total-clientes').textContent = Object.keys(conteoClientes).length;
-
-            const clientesOrdenados = Object.entries(conteoClientes)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 10);
-
-            const tbodyTop = document.getElementById('tabla-top-clientes');
-            if (clientesOrdenados.length > 0) {
-                tbodyTop.innerHTML = clientesOrdenados.map(([cli, total]) => `
-                    <tr class="border-b border-gray-800 hover:bg-gray-800/50">
-                        <td class="p-2 font-medium text-white">${cli}</td>
-                        <td class="p-2 text-right font-bold text-dprinted-yellow">${total}</td>
-                    </tr>
-                `).join('');
-            } else {
-                tbodyTop.innerHTML = `<tr><td colspan="2" class="p-2 text-center text-gray-500">No hay registros este mes</td></tr>`;
-            }
         }
-    } catch (error) {
-        console.error("Error al cargar el dashboard:", error);
-    }
-}
-window.addEventListener('DOMContentLoaded', () => {
-    try { cargarFraseMotivadora(); } catch(e) {}
-    try { cargarDashboardInicio(); } catch(e) {}
-});
-
-window.iniciarApp = function() {
-    const seccionLanding = document.getElementById('landing-view');
-    const seccionApp = document.getElementById('app-view');
-    
-    if (seccionLanding && seccionApp) {
-        seccionLanding.classList.add('hidden');
-        seccionApp.classList.remove('hidden');
-    } else {
-        console.error("No se encontraron los contenedores 'landing-view' o 'app-view'");
-    }
-};
     </script>
 </body>
 </html>
