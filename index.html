@@ -1065,11 +1065,11 @@ async function cargarDashboardInicio() {
     }
 }
 window.addEventListener('DOMContentLoaded', () => {
-    cargarFraseMotivadora();
-    cargarDashboardInicio();
+    try { cargarFraseMotivadora(); } catch(e) {}
+    try { cargarDashboardInicio(); } catch(e) {}
 });
 
-function iniciarApp() {
+window.iniciarApp = function() {
     const seccionLanding = document.getElementById('landing-view');
     const seccionApp = document.getElementById('app-view');
     
@@ -1079,7 +1079,7 @@ function iniciarApp() {
     } else {
         console.error("No se encontraron los contenedores 'landing-view' o 'app-view'");
     }
-}
+};
     </script>
 </body>
 </html>
