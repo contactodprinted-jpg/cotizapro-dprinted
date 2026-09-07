@@ -954,7 +954,112 @@
                 btnElement.innerHTML = textoOriginal;
                 btnElement.disabled = false;
             }
+        }const frasesMotivadoras = [
+    "La disciplina es el puente entre tus metas y tus logros.",
+    "Cada cotización de hoy es el proyecto exitoso de mañana.",
+    "El éxito no es final, el fracaso no es fatal: lo que cuenta es el valor de continuar.",
+    "Haz hoy lo que otros no quieren, haz mañana lo que otros no pueden.",
+    "La calidad nunca es un accidente; es el resultado de un esfuerzo inteligente.",
+    "El único lugar donde el éxito viene antes que el trabajo es en el diccionario.",
+    "Organización y constancia: las mejores herramientas para liderar.",
+    "Un objetivo es un sueño con fecha de límite.",
+    "No cuentes los días, haz que los días cuenten.",
+    "La excelencia no es un acto, es un hábito.",
+    "El trabajo en equipo divide la tarea y multiplica el éxito.",
+    "Visualiza tu meta, confía en tu proceso y da el primer paso.",
+    "Cree en ti mismo y todo lo que eres. Hay algo dentro de ti más grande que cualquier obstáculo.",
+    "El secreto del éxito empresarial es estar dispuesto a cuando llegue tu oportunidad.",
+    "Empieza haciendo lo necesario, luego lo posible, y te encontrarás haciendo lo imposible.",
+    "La mejor forma de predecir el futuro es creándolo.",
+    "El éxito en los negocios requiere entrenamiento, disciplina y trabajo duro.",
+    "Haz que cada detalle importe en cada proyecto que entregues.",
+    "La persistencia es convertir el fracaso en un extraordinario triunfo.",
+    "Tu actitud, no tu aptitud, determinará tu altitud.",
+    "El liderazgo se demuestra con el ejemplo diario y la pasión por lo que haces.",
+    "Los pequeños progresos de cada día suman grandes resultados.",
+    "Confía en la calidad de tu trabajo y en la solidez de tu equipo.",
+    "El éxito llega para aquellos que están dispuestos a trabajar más duro que los demás.",
+    "Cada reto superado fortalece tu empresa y tu visión.",
+    "La innovación distingue a un líder de los demás.",
+    "Planifica tu trabajo hoy para disfrutar del éxito mañana.",
+    "El valor de una marca se construye con cada cliente satisfecho.",
+    "Enfócate en ser productivo, no en estar ocupado.",
+    "Hoy es un gran día para superar tus propias metas."
+];
+
+function cargarFraseMotivadora() {
+    const elFrase = document.getElementById('frase-motivadora');
+    if (elFrase) {
+        const indiceAleatorio = Math.floor(Math.random() * frasesMotivadoras.length);
+        elFrase.textContent = `"${frasesMotivadoras[indiceAleatorio]}"`;
+    }
+}
+
+async function cargarDashboardInicio() {
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL + "?action=dashboard");
+        const result = await response.json();
+
+        if (result.estado === 'exito' && result.datos) {
+            const filas = result.datos;
+            const registros = filas.slice(1); 
+
+            const fechaActual = new Date();
+            const mesActual = fechaActual.getMonth();
+            const anioActual = fechaActual.getFullYear();
+
+            let cantMes = 0;
+            let montoMes = 0;
+            const conteoClientes = {};
+
+            registros.forEach(row => {
+                const fechaStr = row[0]; 
+                const cliente = row[3];
+                const subtotal = parseFloat(row[4]) || 0;
+
+                if (fechaStr) {
+                    const fechaFila = new Date(fechaStr);
+                    if (fechaFila.getMonth() === mesActual && fechaFila.getFullYear() === anioActual) {
+                        cantMes++;
+                        montoMes += subtotal;
+                    }
+                }
+
+                if (cliente) {
+                    const nombreCliente = cliente.toString().trim();
+                    conteoClientes[nombreCliente] = (conteoClientes[nombreCliente] || 0) + 1;
+                }
+            });
+
+            document.getElementById('dash-cant-mes').textContent = cantMes;
+            document.getElementById('dash-monto-mes').textContent = "$" + montoMes.toFixed(2);
+            document.getElementById('dash-total-clientes').textContent = Object.keys(conteoClientes).length;
+
+            const clientesOrdenados = Object.entries(conteoClientes)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const tbodyTop = document.getElementById('tabla-top-clientes');
+            if (clientesOrdenados.length > 0) {
+                tbodyTop.innerHTML = clientesOrdenados.map(([cli, total]) => `
+                    <tr class="border-b border-gray-800 hover:bg-gray-800/50">
+                        <td class="p-2 font-medium text-white">${cli}</td>
+                        <td class="p-2 text-right font-bold text-dprinted-yellow">${total}</td>
+                    </tr>
+                `).join('');
+            } else {
+                tbodyTop.innerHTML = `<tr><td colspan="2" class="p-2 text-center text-gray-500">No hay registros este mes</td></tr>`;
+            }
         }
+    } catch (error) {
+        console.error("Error al cargar el dashboard:", error);
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    cargarFraseMotivadora();
+    cargarDashboardInicio();
+});
     </script>
 </body>
 </html>
