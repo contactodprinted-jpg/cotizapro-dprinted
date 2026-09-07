@@ -1056,9 +1056,18 @@ async function cargarDashboardInicio() {
     }
 }
 
+// Cargar la frase motivadora de inmediato
 window.addEventListener('DOMContentLoaded', () => {
     cargarFraseMotivadora();
-    cargarDashboardInicio();
+});
+
+// Cargar los datos del dashboard un momento después para asegurar conexión con la API
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        if (typeof GOOGLE_SCRIPT_URL !== 'undefined') {
+            cargarDashboardInicio();
+        }
+    }, 500);
 });
     </script>
 </body>
