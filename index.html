@@ -1067,23 +1067,25 @@ async function cargarDashboardInicio() {
 window.addEventListener('DOMContentLoaded', () => {
     cargarFraseMotivadora();
     cargarDashboardInicio();
+});
 
-    // Conectar el botón de ingreso buscando por su texto
-    const elementos = document.querySelectorAll('button, a');
-    elementos.forEach(el => {
-        if (el.textContent && el.textContent.includes('Ingresar al Sistema')) {
-            el.addEventListener('click', (e) => {
-                e.preventDefault();
-                const seccionLanding = document.getElementById('landing-view');
-                const seccionApp = document.getElementById('app-view');
-                
-                if (seccionLanding && seccionApp) {
-                    seccionLanding.classList.add('hidden');
-                    seccionApp.classList.remove('hidden');
-                }
-            });
+// Detector global infalible para el botón de ingreso
+document.addEventListener('click', (e) => {
+    const target = e.target.closest('button, a');
+    if (target && target.textContent && target.textContent.includes('Ingresar al Sistema')) {
+        e.preventDefault();
+        
+        // Busca los contenedores por ID común o clases
+        const seccionLanding = document.getElementById('landing-view') || document.querySelector('.landing-view');
+        const seccionApp = document.getElementById('app-view') || document.querySelector('.app-view');
+        
+        if (seccionLanding && seccionApp) {
+            seccionLanding.classList.add('hidden');
+            seccionApp.classList.remove('hidden');
+        } else {
+            console.error("No se encontraron los contenedores 'landing-view' o 'app-view' en el HTML.");
         }
-    });
+    }
 });
     </script>
 </body>
