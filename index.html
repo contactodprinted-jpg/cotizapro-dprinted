@@ -1069,23 +1069,17 @@ window.addEventListener('DOMContentLoaded', () => {
     cargarDashboardInicio();
 });
 
-// Detector global infalible para el botón de ingreso
-document.addEventListener('click', (e) => {
-    const elementoConTexto = e.target.closest('*');
-    if (elementoConTexto && elementoConTexto.textContent && elementoConTexto.textContent.includes('Ingresar')) {
-        e.preventDefault();
-        
-        const seccionLanding = document.getElementById('landing-view');
-        const seccionApp = document.getElementById('app-view');
-        
-        if (seccionLanding && seccionApp) {
-            seccionLanding.classList.add('hidden');
-            seccionApp.classList.remove('hidden');
-        } else {
-            console.error("Falta el ID 'landing-view' o 'app-view' en el HTML.");
-        }
+function iniciarApp() {
+    const seccionLanding = document.getElementById('landing-view');
+    const seccionApp = document.getElementById('app-view');
+    
+    if (seccionLanding && seccionApp) {
+        seccionLanding.classList.add('hidden');
+        seccionApp.classList.remove('hidden');
+    } else {
+        console.error("No se encontraron los contenedores 'landing-view' o 'app-view'");
     }
-});
+}
     </script>
 </body>
 </html>
