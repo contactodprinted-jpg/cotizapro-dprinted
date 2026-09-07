@@ -1071,19 +1071,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Detector global infalible para el botón de ingreso
 document.addEventListener('click', (e) => {
-    const target = e.target.closest('button, a');
-    if (target && target.textContent && target.textContent.includes('Ingresar al Sistema')) {
+    const elementoConTexto = e.target.closest('*');
+    if (elementoConTexto && elementoConTexto.textContent && elementoConTexto.textContent.includes('Ingresar al Sistema')) {
         e.preventDefault();
         
-        // Busca los contenedores por ID común o clases
-        const seccionLanding = document.getElementById('landing-view') || document.querySelector('.landing-view');
-        const seccionApp = document.getElementById('app-view') || document.querySelector('.app-view');
+        const seccionLanding = document.getElementById('landing-view');
+        const seccionApp = document.getElementById('app-view');
         
         if (seccionLanding && seccionApp) {
             seccionLanding.classList.add('hidden');
             seccionApp.classList.remove('hidden');
-        } else {
-            console.error("No se encontraron los contenedores 'landing-view' o 'app-view' en el HTML.");
         }
     }
 });
