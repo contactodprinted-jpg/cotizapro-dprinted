@@ -1068,20 +1068,22 @@ window.addEventListener('DOMContentLoaded', () => {
     cargarFraseMotivadora();
     cargarDashboardInicio();
 
-    // Conectar el botón de ingreso al sistema
-    const btnIngresar = document.getElementById('btn-ingresar');
-    if (btnIngresar) {
-        btnIngresar.addEventListener('click', (e) => {
-            e.preventDefault();
-            const seccionLanding = document.getElementById('landing-view');
-            const seccionApp = document.getElementById('app-view');
-            
-            if (seccionLanding && seccionApp) {
-                seccionLanding.classList.add('hidden');
-                seccionApp.classList.remove('hidden');
-            }
-        });
-    }
+    // Conectar el botón de ingreso buscando por su texto
+    const elementos = document.querySelectorAll('button, a');
+    elementos.forEach(el => {
+        if (el.textContent && el.textContent.includes('Ingresar al Sistema')) {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                const seccionLanding = document.getElementById('landing-view');
+                const seccionApp = document.getElementById('app-view');
+                
+                if (seccionLanding && seccionApp) {
+                    seccionLanding.classList.add('hidden');
+                    seccionApp.classList.remove('hidden');
+                }
+            });
+        }
+    });
 });
     </script>
 </body>
