@@ -272,7 +272,7 @@
     <!-- WRAPPER OCULTO: Mantiene la plantilla renderizada pero fuera de la vista -->
     <div id="pdf-wrapper">
         <!-- PLANTILLA PDF -->
-       <div id="pdf-template" style="height: 275mm; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 0 !important;">
+       <div id="pdf-template" style="height: 1056px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
             <!-- HEADER EXACTO COMO IMAGEN -->
             <div class="bg-dprinted-black text-white px-8 py-6 flex items-center justify-between border-b-[6px] border-dprinted-yellow">
                 
@@ -668,7 +668,7 @@
                 filename:     `Cotizacion_${numero}_${cliente.replace(/\s+/g, '_')}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2, useCORS: true, scrollY: 0, scrollX: 0 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' }
             };
             
             // Cambiar el botón temporalmente a estado de carga
