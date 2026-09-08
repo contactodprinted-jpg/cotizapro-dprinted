@@ -929,7 +929,12 @@ function prepararNuevaCotizacion() {
         tablaItems.innerHTML = '';
     }
 
-    // 3. Limpiar las imágenes de referencia cargadas
+    // 3. Si tu código usa una función para agregar una fila por defecto, la llamamos aquí para que nazca limpia
+    if (typeof agregarFila === 'function') {
+        agregarFila(); // Esto crea una sola fila limpia y vacía lista para escribir
+    }
+
+    // 4. Limpiar las imágenes de referencia cargadas
     if (typeof imagenesBase64 !== 'undefined') {
         imagenesBase64 = [];
     }
@@ -937,14 +942,14 @@ function prepararNuevaCotizacion() {
         renderizarGaleriaUI();
     }
 
-    // 4. Incrementar automáticamente el número de cotización
+    // 5. Incrementar automáticamente el número de cotización
     const inputCorrelativo = document.getElementById('ui-numero');
     if (inputCorrelativo) {
         let numeroActual = parseInt(inputCorrelativo.value) || 3091;
         inputCorrelativo.value = numeroActual + 1;
     }
 
-    // 5. Actualizar totales a cero
+    // 6. Actualizar totales a cero
     if (typeof calcularTotales === 'function') {
         calcularTotales();
     } else if (typeof actualizarTotales === 'function') {
