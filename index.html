@@ -913,8 +913,6 @@
             }
          }
 function prepararNuevaCotizacion() {
-    alert("Iniciando limpieza...");
-
     // 1. Limpiar campos de texto usando sus IDs exactos
     const campos = ['ui-fecha', 'ui-vendedor', 'ui-cliente', 'ui-contacto', 'ui-desc-general'];
     campos.forEach(id => {
@@ -922,14 +920,29 @@ function prepararNuevaCotizacion() {
         if(elemento) elemento.value = '';
     });
 
-    // 2. Limpiar la memoria de productos y la tabla visual
-    if (typeof items !== 'undefined') items = []; 
+    // 2. Vaciar la memoria de productos y limpiar la tabla visual
+    if (typeof items !== 'undefined') {
+        items = []; 
+    }
     const tablaItems = document.getElementById('cuerpo-tabla-items'); 
-    if (tablaItems) tablaItems.innerHTML = '';
+    if (tablaItems) {
+        tablaItems.innerHTML = '';
+    }
 
-    // 3. Forzar el nuevo correlativo
+    // 3. Incrementar automáticamente el número de cotización
     const inputCorrelativo = document.getElementById('ui-numero');
-    if (inputCorrelativo) inputCorrelativo.value = '3091';
+    if (inputCorrelativo) {
+        // Lee el número actual, lo convierte a entero, le suma 1 y lo vuelve a colocar
+        let numeroActual = parseInt(inputCorrelativo.value) || 3091;
+        inputCorrelativo.value = numeroActual + 1;
+    }
+
+    // 4. Actualizar totales y redibujar la tabla vacía si existe la función
+    if (typeof calcularTotales === 'function') {
+        calcularTotales();
+    } else if (typeof actualizarTotales === 'function') {
+        actualizarTotales();
+    }
     }
     </script>
 </body>
