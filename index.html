@@ -913,14 +913,14 @@
             }
          }
 function prepararNuevaCotizacion() {
-    // 1. Limpiar campos de texto usando sus IDs exactos
+    // 1. Limpiar campos de texto generales
     const campos = ['ui-fecha', 'ui-vendedor', 'ui-cliente', 'ui-contacto', 'ui-desc-general'];
     campos.forEach(id => {
         const elemento = document.getElementById(id);
         if(elemento) elemento.value = '';
     });
 
-    // 2. Vaciar la memoria de productos y limpiar la tabla visual
+    // 2. Vaciar array de items y limpiar completamente la tabla visual
     if (typeof items !== 'undefined') {
         items = []; 
     }
@@ -929,15 +929,22 @@ function prepararNuevaCotizacion() {
         tablaItems.innerHTML = '';
     }
 
-    // 3. Incrementar automáticamente el número de cotización
+    // 3. Limpiar las imágenes de referencia cargadas
+    if (typeof imagenesBase64 !== 'undefined') {
+        imagenesBase64 = [];
+    }
+    if (typeof renderizarGaleriaUI === 'function') {
+        renderizarGaleriaUI();
+    }
+
+    // 4. Incrementar automáticamente el número de cotización
     const inputCorrelativo = document.getElementById('ui-numero');
     if (inputCorrelativo) {
-        // Lee el número actual, lo convierte a entero, le suma 1 y lo vuelve a colocar
         let numeroActual = parseInt(inputCorrelativo.value) || 3091;
         inputCorrelativo.value = numeroActual + 1;
     }
 
-    // 4. Actualizar totales y redibujar la tabla vacía si existe la función
+    // 5. Actualizar totales a cero
     if (typeof calcularTotales === 'function') {
         calcularTotales();
     } else if (typeof actualizarTotales === 'function') {
