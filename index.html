@@ -929,12 +929,17 @@
          }
 function prepararNuevaCotizacion() {
     // 1. Limpiar campos de texto generales
-    const campos = ['ui-fecha', 'ui-vendedor', 'ui-cliente', 'ui-contacto', 'ui-desc-general'];
+    const campos = ['ui-vendedor', 'ui-cliente', 'ui-contacto', 'ui-desc-general'];
     campos.forEach(id => {
         const elemento = document.getElementById(id);
         if(elemento) elemento.value = '';
     });
-
+    // Poner automáticamente la fecha de hoy
+    const inputFecha = document.getElementById('ui-fecha');
+    if (inputFecha) {
+        const hoy = new Date().toISOString().split('T')[0];
+        inputFecha.value = hoy;
+    }
     // 2. Vaciar array de items y limpiar completamente la tabla visual
     if (typeof items !== 'undefined') {
         items = []; 
