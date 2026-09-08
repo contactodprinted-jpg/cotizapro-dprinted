@@ -721,6 +721,7 @@
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' }
                     }).then(res => res.json()).then(data => {
                         console.log("Sincronización Cloud completada");
+                        prepararNuevaCotizacion();
                     }).catch(err => console.error("Error al sincronizar con Cloud", err));
                 });
             }, 500);
@@ -910,6 +911,19 @@
                 btnElement.innerHTML = textoOriginal;
                 btnElement.disabled = false;
             }
+         }
+function prepararNuevaCotizacion() {
+    // 1. Vacía los campos de texto
+    const formulario = document.querySelector('form');
+    if (formulario) formulario.reset();
+    
+    // 2. Vacía la tabla de productos
+    const tablaItems = document.getElementById('cuerpo-tabla-items');
+    if (tablaItems) tablaItems.innerHTML = '';
+
+    // 3. Establece el nuevo correlativo
+    const inputCorrelativo = document.getElementById('numero-correlativo') || document.getElementById('correlativo');
+    if (inputCorrelativo) inputCorrelativo.value = '3091';
         }
     </script>
 </body>
