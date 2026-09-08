@@ -913,18 +913,22 @@
             }
          }
 function prepararNuevaCotizacion() {
-    // 1. Vacía los campos de texto
-    const formulario = document.querySelector('form');
-    if (formulario) formulario.reset();
-    
-    // 2. Vacía la tabla de productos
-    const tablaItems = document.getElementById('cuerpo-tabla-items');
+    // 1. Limpiar campos de texto usando sus IDs exactos
+    const campos = ['ui-fecha', 'ui-vendedor', 'ui-cliente', 'ui-contacto', 'ui-desc-general'];
+    campos.forEach(id => {
+        const elemento = document.getElementById(id);
+        if(elemento) elemento.value = '';
+    });
+
+    // 2. Limpiar la memoria de productos y la tabla visual
+    if (typeof items !== 'undefined') items = []; 
+    const tablaItems = document.getElementById('cuerpo-tabla-items'); 
     if (tablaItems) tablaItems.innerHTML = '';
 
-    // 3. Establece el nuevo correlativo
-    const inputCorrelativo = document.getElementById('numero-correlativo') || document.getElementById('correlativo');
+    // 3. Forzar el nuevo correlativo
+    const inputCorrelativo = document.getElementById('ui-numero');
     if (inputCorrelativo) inputCorrelativo.value = '3091';
-        }
+    }
     </script>
 </body>
 </html>
