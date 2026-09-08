@@ -126,6 +126,13 @@
                         <input type="text" id="ui-vendedor" class="w-full border rounded p-2 focus:ring-2 focus:ring-dprinted-yellow outline-none" placeholder="Nombre del vendedor">
                     </div>
                     <div>
+                <label class="block text-sm font-semibold mb-1">Condición de Pago</label>
+                <select id="ui-condicion-pago" class="w-full border rounded p-2 focus:ring-2 focus:ring-dprinted-yellow outline-none bg-white">
+                    <option value="contado">Contado</option>
+                    <option value="credito">Crédito</option>
+                </select>
+                    </div>
+                    <div>
                         <label class="block text-sm font-semibold mb-1">Cliente / Empresa</label>
                         <input type="text" id="ui-cliente" class="w-full border rounded p-2 focus:ring-2 focus:ring-dprinted-yellow outline-none" placeholder="Nombre de la empresa">
                     </div>
@@ -369,7 +376,7 @@
                             <p>Validez de la oferta: 15 días calendario a partir de la fecha de emisión.</p>
                         </div>
                         <div class="w-1/4 pt-4">
-                            <p>Forma de pago: 50% de anticipo para inicio de producción y 50% contra entrega del trabajo.</p>
+                            <p id="pdf-forma-pago">Forma de pago: 50% de anticipo para inicio de producción y 50% contra entrega del trabajo.</p>
                         </div>
                         <div class="w-2/4 pt-4">
                             <p><span class="font-bold">Datos bancarios:</span> Realizar el pago a nombre de:</p>
@@ -673,6 +680,14 @@
             }
             
             setTimeout(() => {
+                // Actualizar el texto del PDF según sea Contado o Crédito
+    const condicion = document.getElementById('ui-condicion-pago').value;
+    const textoPagoPDF = document.getElementById('pdf-forma-pago');
+    if (textoPagoPDF) {
+        textoPagoPDF.textContent = (condicion === 'credito') 
+            ? 'Forma de pago: Crédito' 
+            : 'Forma de pago: 50% de anticipo para inicio de producción y 50% contra entrega del trabajo.';
+            }
                 // Generar PDF base64 y guardarlo
                 html2pdf().set(opt).from(elemento).output('datauristring').then((pdfOutput) => {
                     html2pdf().set(opt).from(elemento).save().then(() => {
@@ -955,6 +970,9 @@ function prepararNuevaCotizacion() {
     } else if (typeof actualizarTotales === 'function') {
         actualizarTotales();
     }
+    // Resetear el selector de pago a contado para la siguiente cotización
+    const selectCondicion = document.getElementById('ui-condicion-pago');
+    if (selectCondicion) selectCondicion.value = 'contado';
     }
     </script>
 </body>
