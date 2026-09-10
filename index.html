@@ -678,37 +678,17 @@
             const paginas = Math.ceil(alturaReal / 1056);
             elemento.style.height = (paginas * 1056) + 'px';
 
-    elemento.style.height = (paginas * 1056) + 'px';
-
-    document.querySelectorAll('.repeating-header').forEach(el => el.remove());
+  document.querySelectorAll('.repeating-header').forEach(el => el.remove());
 
     if (paginas > 1) {
         for (let p = 1; p < paginas; p++) {
             const headerClone = document.createElement('div');
             headerClone.className = 'repeating-header';
-            headerClone.style.position = 'absolute';
-            headerClone.style.top = (p * 1056) + 'px';
-            headerClone.style.left = '0';
-            headerClone.style.width = '100%';
-            headerClone.style.padding = '15px 40px';
-            headerClone.style.backgroundColor = '#0A0A0A';
-            headerClone.style.color = 'white';
-            headerClone.style.boxSizing = 'border-box';
-            headerClone.style.borderBottom = '4px solid #EAA800';
-            headerClone.style.display = 'flex';
-            headerClone.style.justifyContent = 'space-between';
-            headerClone.style.alignItems = 'center';
-            headerClone.style.zIndex = '100';
-            headerClone.innerHTML = `
-                <div style="font-weight: 900; font-size: 14px; letter-spacing: 0.05em; color: white;">COTIZACIÓN Nº ${numero} <span style="font-size: 11px; font-weight: normal; color: #9ca3af; margin-left: 10px;">(Continuación - ${cliente})</span></div>
-                <div style="font-size: 10px; color: #EAA800; font-weight: bold;">D'PRINTED, S.A.</div>
-            `;
+            headerClone.style.cssText = 'position: absolute; top: ' + (p * 1056) + 'px; left: 0; width: 100%; padding: 15px 40px; background-color: #0A0A0A; color: white; box-sizing: border-box; border-bottom: 4px solid #EAA800; display: flex; justify-content: space-between; align-items: center; z-index: 100;';
+            headerClone.innerHTML = '<div style="font-weight: 900; font-size: 14px; color: white;">COTIZACIÓN Nº ' + numero + ' <span style="font-size: 11px; font-weight: normal; color: #9ca3af; margin-left: 10px;">(Continuación)</span></div><div style="font-size: 10px; color: #EAA800; font-weight: bold;">D\'PRINTED, S.A.</div>';
             elemento.appendChild(headerClone);
         }
     }
-
-    // Opciones de configuración de html2pdf
-    const opt = {
             
             // Opciones de configuración de html2pdf
             const opt = {
