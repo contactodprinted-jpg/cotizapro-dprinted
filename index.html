@@ -390,8 +390,9 @@
                     </div>
 
                     <!-- Footer final franja acoplada (con márgenes negativos para llenar el borde horizontal) -->
-                    <div class="bg-dprinted-black text-center py-3 border-t-[4px] border-dprinted-yellow -mx-8" style="position: absolute; bottom: 0; left: 0; width: 100%;">
-                        <p class="text-dprinted-yellow font-bold text-lg m-0">Gracias por elegir a D'Printed</p>
+                    <!-- Footer anclado matemáticamente al fondo -->
+                    <div class="bg-dprinted-black text-center py-3 border-t-[4px] border-dprinted-yellow" style="position: absolute; bottom: 0; left: 0; width: 100%;">
+                    <p class="text-dprinted-yellow font-bold text-lg m-0">Gracias por elegir a D'Printed</p>
                     </div>
                 </div>
 
@@ -665,6 +666,12 @@
 
             // 3. Generar PDF y Sincronizar
             const elemento = document.getElementById('pdf-template');
+
+            // Calcular la altura real y forzar que sea un múltiplo exacto de página (1056px)
+            elemento.style.height = 'auto'; 
+            const alturaReal = elemento.offsetHeight;
+            const paginas = Math.ceil(alturaReal / 1056);
+            elemento.style.height = (paginas * 1056) + 'px';
             
             // Opciones de configuración de html2pdf
             const opt = {
