@@ -275,29 +275,31 @@
        <div id="pdf-template" style="width: 816px; min-height: 1056px; position: relative; box-sizing: border-box; background: white; padding: 40px; display: flex; flex-direction: column; justify-content: space-between;">
             <!-- HEADER EXACTO COMO IMAGEN -->
             <div class="bg-dprinted-black text-white px-8 py-6 flex items-center justify-between border-b-[6px] border-dprinted-yellow">
-                
-                <!-- 1. Logo -->
-                <div class="flex items-center w-1/4">
-                    <!-- REEMPLAZA EL ATRIBUTO SRC CON LA RUTA DE TU LOGO. EJ: src="Logo.png" -->
-                    <img src="Logo.png" alt="Logo D'Printed" class="max-h-16 object-contain">
-                </div>
-                
-                <!-- 2. Título Central -->
-                <div class="w-2/4 flex items-center justify-center space-x-6">
-                    <h1 class="text-4xl font-black tracking-wider m-0">COTIZACIÓN</h1>
-                    <div class="text-left border-l border-gray-600 pl-4">
-                        <h2 class="text-lg font-bold m-0 leading-none">D'PRINTED, S.A.</h2>
-                        <p class="text-xs text-gray-400 m-0 mt-1">155713566-2-2021 DV08</p>
-                    </div>
-                </div>
+    
+    <!-- 1. Logo -->
+    <div class="w-[20%] flex items-center">
+        <!-- REEMPLAZA CON LA RUTA DE TU LOGO -->
+        <img src="Logo.png" alt="Logo D'Printed" class="max-h-16 object-contain">
+    </div>
+    
+    <!-- 2. Título Central -->
+    <div class="w-[45%] flex items-center justify-center space-x-4">
+        <h1 class="text-3xl font-black tracking-wider m-0">COTIZACIÓN</h1>
+        <div class="text-left border-l border-gray-600 pl-4">
+            <!-- whitespace-nowrap obliga a que no se parta la línea -->
+            <h2 class="text-lg font-bold m-0 leading-none whitespace-nowrap">D'PRINTED, S.A.</h2>
+            <p class="text-[10px] text-gray-400 m-0 mt-1 whitespace-nowrap">155713566-2-2021 DV08</p>
+        </div>
+    </div>
 
-                <!-- 3. Contacto Derecha -->
-                <div class="w-1/4 text-right text-xs space-y-1.5">
-                    <p><i class="fa-solid fa-phone text-dprinted-yellow w-4 text-center"></i> 6347-6000 / 354-3401</p>
-                    <p><i class="fa-solid fa-envelope text-dprinted-yellow w-4 text-center"></i> ventas@d-printed.net</p>
-                    <p><i class="fa-solid fa-globe text-dprinted-yellow w-4 text-center"></i> DPRINTED507</p>
-                </div>
-            </div>
+    <!-- 3. Contacto Derecha -->
+    <div class="w-[35%] text-right text-[10px] space-y-1.5 whitespace-nowrap">
+        <p><i class="fa-solid fa-phone text-dprinted-yellow w-4 text-center"></i> 6347-6000 / 354-3401</p>
+        <p><i class="fa-solid fa-envelope text-dprinted-yellow w-4 text-center"></i> ventas@d-printed.net</p>
+        <p><i class="fa-solid fa-globe text-dprinted-yellow w-4 text-center"></i> DPRINTED507</p>
+    </div>
+    
+</div>
 
             <!-- CONTENIDO PRINCIPAL -->
             <div class="px-8 py-6 flex-grow">
