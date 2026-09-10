@@ -684,18 +684,12 @@
         for (let p = 1; p < paginas; p++) {
             const headerClone = document.createElement('div');
             headerClone.className = 'repeating-header';
-            headerClone.style.cssText = 'position: absolute; top: ' + (p * 1056) + 'px; left: 0; width: 100%; height: 55px; padding: 12px 40px; background-color: #0A0A0A; color: white; box-sizing: border-box; border-bottom: 4px solid #EAA800; display: flex; justify-content: space-between; align-items: center; z-index: 1000;';
+            headerClone.style.cssText = 'position: absolute; top: ' + (p * 1056) + 'px; left: 0; width: 100%; height: 55px; padding: 12px 40px; background-color: #0A0A0A; color: white; box-sizing: border-box; border-bottom: 4px solid #EAA800; display: flex; justify-content: space-between; align-items: center; z-index: 100;';
             headerClone.innerHTML = '<div style="font-weight: 900; font-size: 13px; color: white;">COTIZACIÓN Nº ' + numero + ' <span style="font-size: 10px; font-weight: normal; color: #9ca3af; margin-left: 8px;">(Continuación)</span></div><div style="font-size: 10px; color: #EAA800; font-weight: bold;">D\'PRINTED, S.A.</div>';
             
-            // Insertar un fondo blanco sólido detrás del header para tapar cualquier texto que cruce el salto de página
-            const bgMask = document.createElement('div');
-            bgMask.className = 'repeating-header';
-            bgMask.style.cssText = 'position: absolute; top: ' + (p * 1056) + 'px; left: 0; width: 100%; height: 75px; background-color: white; z-index: 999;';
-            
-            elemento.appendChild(bgMask);
             elemento.appendChild(headerClone);
         }
-    }     
+    }  
             // Opciones de configuración de html2pdf
             const opt = {
                 margin:       0,
