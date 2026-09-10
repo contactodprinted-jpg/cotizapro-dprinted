@@ -685,16 +685,16 @@
             // 1. Crear la barra negra de continuación
             const headerClone = document.createElement('div');
             headerClone.className = 'repeating-header';
-            headerClone.style.cssText = 'position: absolute; top: ' + ((p * 1056) + 20) + 'px; left: 40px; width: calc(100% - 80px); height: 50px; padding: 12px 20px; background-color: #0A0A0A; color: white; box-sizing: border-box; border-bottom: 4px solid #EAA800; display: flex; justify-content: space-between; align-items: center; z-index: 100;';
+            headerClone.style.cssText = 'position: absolute; top: ' + (p * 1056) + 'px; left: 0; width: 100%; height: 60px; padding: 15px 40px; background-color: #0A0A0A; color: white; box-sizing: border-box; border-bottom: 4px solid #EAA800; display: flex; justify-content: space-between; align-items: center; z-index: 100;';
             headerClone.innerHTML = '<div style="font-weight: 900; font-size: 13px; color: white;">COTIZACIÓN Nº ' + numero + ' <span style="font-size: 10px; font-weight: normal; color: #9ca3af; margin-left: 8px;">(Continuación)</span></div><div style="font-size: 10px; color: #EAA800; font-weight: bold;">D\'PRINTED, S.A.</div>';
             
-            // 2. Crear un bloque espaciador invisible justo debajo de la barra para obligar a que el texto baje
-            const spacerClone = document.createElement('div');
-            spacerClone.className = 'repeating-header';
-            spacerClone.style.cssText = 'position: absolute; top: ' + ((p * 1056) + 75) + 'px; left: 0; width: 100%; height: 40px; z-index: 99;';
-
             elemento.appendChild(headerClone);
-            elemento.appendChild(spacerClone);
+        }
+
+        // 2. Aplicar un margen superior dinámico a la tabla en páginas secundarias para evitar cortes
+        const tablaProductos = document.getElementById('pdf-items-container'); 
+        if(tablaProductos) {
+            tablaProductos.style.marginTop = '25px';
         }
     }
             // Opciones de configuración de html2pdf
