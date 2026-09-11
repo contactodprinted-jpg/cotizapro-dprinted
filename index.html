@@ -698,11 +698,12 @@
             elemento.appendChild(headerClone);
         }
 
-        // 2. Aplicar un margen superior dinámico a la tabla en páginas secundarias para evitar cortes
-        const tablaProductos = document.getElementById('pdf-items-container'); 
-        if(tablaProductos) {
-            tablaProductos.style.marginTop = '25px';
-        }
+        // 2. Crear un espaciador con fondo blanco debajo de la barra de continuación
+    for (let p = 1; p < paginas; p++) {
+        const spacerClone = document.createElement('div');
+        spacerClone.style.cssText = 'position: absolute; top: ' + ((p * 1056) + 60) + 'px; left: 0; width: 100%; height: 50px; background-color: #ffffff; pointer-events: none; z-index: 99;';
+        elemento.appendChild(spacerClone);
+    }
     }
             // Opciones de configuración de html2pdf
             const opt = {
