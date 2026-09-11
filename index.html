@@ -14,11 +14,17 @@
     <!-- Fuentes de Google -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-   #pdf-template .totals-container, 
-#pdf-template table {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-}
+    /* Obliga a que los totales y las tablas salten limpios a la siguiente página sin cortarse */
+    #pdf-template .totals-container, 
+    #pdf-template table,
+    #pdf-template tr {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+    #pdf-template {
+        box-sizing: border-box !important;
+    }
 </style>
     
     <script>
@@ -351,7 +357,7 @@
                 </table>
 
                 <!-- Totales -->
-                <div class="flex justify-end mb-10">
+                <div class="totals-container flex justify-end mb-10" style="break-inside: avoid !important; page-break-inside: avoid !important;">
                     <div class="w-64 space-y-2 text-sm">
                         <div class="flex justify-between">
                             <span class="font-bold">SUBTOTAL</span>
@@ -698,13 +704,6 @@
             elemento.appendChild(headerClone);
         }
 
-        // 2. Crear un espaciador con fondo blanco debajo de la barra de continuación
-    for (let p = 1; p < paginas; p++) {
-        const spacerClone = document.createElement('div');
-        spacerClone.style.cssText = 'position: absolute; top: ' + ((p * 1056) + 60) + 'px; left: 0; width: 100%; height: 50px; background-color: #ffffff; pointer-events: none; z-index: 99;';
-        elemento.appendChild(spacerClone);
-    }
-    }
             // Opciones de configuración de html2pdf
             const opt = {
                 margin:       0,
