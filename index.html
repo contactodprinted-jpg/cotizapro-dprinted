@@ -13,12 +13,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Fuentes de Google -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        #pdf-template tr {
-            break-inside: avoid !important;
-            page-break-inside: avoid !important;
-        }
-    </style>
+   <style>
+    /* Deja un margen superior automático en las páginas 2 en adelante para la barra negra */
+    @page {
+        margin-top: 75px;
+    }
+    @page:first {
+        margin-top: 0px;
+    }
+</style>
     
     <script>
         tailwind.config = {
