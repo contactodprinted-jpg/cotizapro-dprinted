@@ -353,7 +353,7 @@
                 </table>
 
                 <!-- Totales -->
-               <div class="flex justify-end mb-10" style="page-break-before: always; break-before: page; padding-top: 110px !important;">
+               <div class="flex justify-end mb-10" style="break-inside: avoid !important; page-break-inside: avoid !important;">
                     <div class="w-64 space-y-2 text-sm">
                         <div class="flex justify-between">
                             <span class="font-bold">SUBTOTAL</span>
@@ -703,7 +703,7 @@
         // 2. Aplicar un margen superior dinámico a la tabla en páginas secundarias para evitar cortes
         const tablaProductos = document.getElementById('pdf-items-container'); 
         if(tablaProductos) {
-            tablaProductos.style.marginTop = '25px';
+            tablaProductos.style.marginTop = '85px';
         }
     }
             // Opciones de configuración de html2pdf
