@@ -1018,17 +1018,18 @@ function prepararNuevaCotizacion() {
         actualizarTotales();
     }
     
-    // Resetear el selector de pago a contado para la siguiente cotización
     const selectCondicion = document.getElementById('ui-condicion-pago');
     if (selectCondicion) {
         selectCondicion.value = 'contado';
     }
-} // <-- Cierra la función principal (iniciarApp)
-
-// Definición de seguridad por si el botón la llama directamente
-function iniciarApp() {
-    console.log("App iniciada correctamente");
 }
+
+// Declarar la función globalmente para que el botón de la línea 111 la encuentre sin errores
+window.iniciarApp = function() {
+    console.log("Iniciando flujo de generación y sincronización...");
+    // Si tu lógica principal está en otra función (como generarPDF o sincronizar), 
+    // lógala aquí dentro para que el botón la ejecute correctamente.
+};
 </script>
 </body>
 </html>
